@@ -1,0 +1,264 @@
+[
+    {
+        "id": "b820c09d18bd9c11",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "b28e2d17874bc63c",
+        "type": "mqtt out",
+        "z": "b820c09d18bd9c11",
+        "name": "",
+        "topic": "/LedControl",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "209693ef0e4fa260",
+        "x": 810,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "db88ceb5c66ec2bd",
+        "type": "ui_switch",
+        "z": "b820c09d18bd9c11",
+        "name": "",
+        "label": "PUMP",
+        "tooltip": "",
+        "group": "893f36e413eabf83",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "/LedControl",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "1",
+        "onvalueType": "str",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "2",
+        "offvalueType": "str",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 550,
+        "y": 260,
+        "wires": [
+            [
+                "b28e2d17874bc63c"
+            ]
+        ]
+    },
+    {
+        "id": "487e7849d3e53bab",
+        "type": "ui_gauge",
+        "z": "b820c09d18bd9c11",
+        "name": "",
+        "group": "893f36e413eabf83",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "gtype": "wave",
+        "title": "Water",
+        "label": "L",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 830,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "5deb8453dc581562",
+        "type": "function",
+        "z": "b820c09d18bd9c11",
+        "name": "function 1",
+        "func": "msg = 10;\nreturn 20;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 520,
+        "y": 560,
+        "wires": [
+            [
+                "487e7849d3e53bab"
+            ]
+        ]
+    },
+    {
+        "id": "c569327ac226889b",
+        "type": "ui_gauge",
+        "z": "b820c09d18bd9c11",
+        "name": "",
+        "group": "893f36e413eabf83",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Temperature",
+        "label": "°C",
+        "format": "{{value}}",
+        "min": 0,
+        "max": 10,
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 850,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "e126ba86c35bc952",
+        "type": "ui_gauge",
+        "z": "b820c09d18bd9c11",
+        "name": "",
+        "group": "893f36e413eabf83",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Humidity",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": 10,
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 840,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "33d50b2133a2770b",
+        "type": "function",
+        "z": "b820c09d18bd9c11",
+        "name": "function 2",
+        "func": "\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 520,
+        "y": 480,
+        "wires": [
+            [
+                "e126ba86c35bc952"
+            ]
+        ]
+    },
+    {
+        "id": "cb8c3e803799eaf2",
+        "type": "function",
+        "z": "b820c09d18bd9c11",
+        "name": "function 3",
+        "func": "\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 520,
+        "y": 400,
+        "wires": [
+            [
+                "c569327ac226889b"
+            ]
+        ]
+    },
+    {
+        "id": "209693ef0e4fa260",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "test.mosquitto.org",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "893f36e413eabf83",
+        "type": "ui_group",
+        "name": "Pump Control",
+        "tab": "ae59a9b3a4f072e4",
+        "order": 1,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "ae59a9b3a4f072e4",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "1d8daa44bc83e43b",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node-red-dashboard": "3.6.6"
+        }
+    }
+]
