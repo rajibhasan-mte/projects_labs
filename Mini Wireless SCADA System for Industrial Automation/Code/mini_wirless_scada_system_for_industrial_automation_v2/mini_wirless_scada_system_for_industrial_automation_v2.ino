@@ -5,8 +5,11 @@
 #include <DHT.h>
 
 /* ---------- WiFi & MQTT ---------- */
-const char* ssid = "Raju";
-const char* password = "@@ra7282ju@@";
+// const char* ssid = "Raju";
+// const char* password = "@@ra7282ju@@";
+const char* ssid = "Galaxy A32";
+const char* password = "shuvhro.";
+
 const char* mqtt_server = "test.mosquitto.org";
 WiFiClient espClient;
 PubSubClient client(espClient);
@@ -92,7 +95,8 @@ int getWaterLevel() {
   if (duration == 0) return 0;
 
   float distance = duration * 0.034 / 2; // cm
-  float level = map(distance, 30, 5, 0, 100);
+  Serial.println(distance);
+  float level = map(distance, 16, 1, 0, 100);
 
 
   return constrain(level, 0, 100);
@@ -101,7 +105,7 @@ int getWaterLevel() {
 
 void startDht(){
   static int cnt = 2000;
-  if(cnt >= 50){
+  if(cnt >= 10){
     temp = dht.readTemperature();
     humi = dht.readHumidity();
     power = getPower();
@@ -120,6 +124,7 @@ void setup() {
   pinMode(ECHO_PIN, INPUT);
   pinMode(PUMP_PIN, OUTPUT);
   pinMode(ACS_PIN, INPUT);
+  pinMode(PIN_FLOW, INPUT);
   attachInterrupt(digitalPinToInterrupt(PIN_FLOW), pulseCounter, RISING);
   digitalWrite(PUMP_PIN, LOW);
   while(0){
@@ -153,6 +158,9 @@ void loop() {
   client.loop();
   startDht();
   watterFlow();
+  if(water >= 85){
+    digitalWrite(PUMP_PIN, LOW);
+  }
   
   static int cnt1 = 200;
   if(cnt1 >= 100){
@@ -174,7 +182,7 @@ void IRAM_ATTR pulseCounter() {
 }
 
 void watterFlow(){
-  litter = pulse_count / 10;
+  litter = pulse_count*1.2;
 }
 
 void dataLoginBegin(){
